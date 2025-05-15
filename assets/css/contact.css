@@ -1,0 +1,22 @@
+#contact {
+  text-align: center;
+  margin: 3rem auto;
+}
+
+#contact .icon-links {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+#contact .icon-links img {
+  width: 30px;
+  height: 30px;
+  transition: transform 0.3s ease;
+}
+
+#contact .icon-links img:hover {
+  transform: scale(1.1);
+}

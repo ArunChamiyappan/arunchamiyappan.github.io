@@ -1,0 +1,90 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f9f9f9;
+}
+
+header {
+  background-color: #004080;
+  color: #fff;
+  padding: 2rem;
+  text-align: center;
+}
+
+header1 {
+  color:black;
+  padding: 2rem;
+  text-align: center;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.profile-pic {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-box {
+  width: 150px;
+  height: 160px;
+  object-fit: cover;
+}
+
+.header-text h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.header-text p {
+  margin: 0.5rem 0 1rem;
+}
+
+nav a {
+  margin: 0 15px;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+main {
+  padding: 2rem;
+  max-width: 800px;
+  margin: auto;
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+#about p {
+  text-align: justify;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 600;
+}
+
+footer {
+  padding: 2rem;
+  min-height: 2rem;
+  color: rgb(0, 0, 0);
+  font-family: monospace;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+}
