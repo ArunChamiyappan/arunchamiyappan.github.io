@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -7,22 +8,33 @@
   <link rel="stylesheet" href="assets/css/style.css" />
   <link rel="stylesheet" href="assets/css/contact.css" />
   <link rel="stylesheet" href="assets/css/navbar.css" />
-  <link rel="stylesheet" href="assets/css/theme-style.css" />
   <link rel="stylesheet" href="assets/css/gallery.css" />
 </head>
+
 <body>
   <header>
+    <div style="height: 20px;"></div>
     <h1>Arun Chamiyappan</h1>
+    <div style="height: 20px;"></div>
     <h3>PhD Student | IIT Madras</h3>
-    <nav>
-      <a href="#about">About</a>
-      <a href="pages/CV.html">CV</a>
-      <a href="pages/research.html">Research</a>
-      <a href="pages/Teaching.html">Teaching</a>
-      <a href="pages/publications.html">Publications</a>
-      <a href="https://github.com/ArunChamiyappan">GitHub</a>
+    <nav class="navbar">
+      <ul class="navbar-menu">
+        <li><a href="#about">About</a></li>
+        <li><a href="pages/CV.html">CV</a></li>
+        <li><a href="pages/research.html">Research</a></li>
+        <li class="dropdown">
+          <a href="#">Teaching ▾</a>
+          <ul class="dropdown-content">
+            <li><a href="pages/Teaching.html">Teaching Assistance</a></li>
+            <li><a href="pages/Notes.html">Notes</a></li>
+          </ul>
+        </li>
+        <li><a href="publications.html">Publications</a></li>
+        <li><a href="https://github.com/ArunChamiyappan">GitHub</a></li>
+      </ul>
     </nav>
   </header>
+
 
   <main>
     <section id="about">
@@ -35,97 +47,94 @@
         My work aims to bridge the gap between computational modeling and real-world manufacturing applications.</p>
     </section>
 
-<h3 style="text-align: center;">Gallery</h3>   
-<div class="gallery">
-  <ul class="results">
-  <!--Image 1-->
-    <li class="result">
-    <a href="#">
-      <div class="img-container">
-        <img src="assets/images/gettogether2.jpeg" alt="Descriptive Caption">
-        <div class="caption">ICME Get-together</div>
-      </div>
-    </a>
-  </li>
+  <h3 style="text-align: center;">Gallery</h3>   
+  <div class="gallery">
+    <ul class="results">
+      <!--Image 1-->
+      <li class="result">
+        <a href="#">
+          <div class="img-container">
+            <img src="assets/images/gettogether2.jpeg" alt="Descriptive Caption">
+            <div class="caption">ICME Get-together</div>
+          </div>
+        </a>
+      </li>
 
-  <!--Image 2-->
-  <li class="result">
-    <a href="#">
-      <div class="img-container">
-        <img src="assets/images/NITW.jpeg" alt="Descriptive Caption">
-        <div class="caption">NSM Workshop at NIT Warrengal</div>
-      </div>
-    </a>
-  </li>
+      <!--Image 2-->
+      <li class="result">
+        <a href="#">
+          <div class="img-container">
+            <img src="assets/images/NITW.jpeg" alt="Descriptive Caption">
+            <div class="caption">NSM Workshop at NIT Warrengal</div>
+          </div>
+        </a>
+      </li>
 
-  <!--Image 7-->
-  <li class="result">
-    <a href="#">
-      <div class="img-container">
-        <img src="assets/images/MEJIBI.jpeg" alt="Descriptive Caption">
-        <div class="caption">😀</div>
-      </div>
-    </a>
-  </li>
+      <!--Image 7-->
+      <li class="result">
+        <a href="#">
+          <div class="img-container">
+            <img src="assets/images/MEJIBI.jpeg" alt="Descriptive Caption">
+            <div class="caption">😀</div>
+          </div>
+        </a>
+      </li>
 
-  <!--Image 4-->
-  <li class="result">
-    <a href="#">
-      <div class="img-container">
-        <img src="assets/images/temple.jpeg" alt="Descriptive Caption">
-        <div class="caption">sri lakshmi narasimha swamy temple sholingur</div>
-      </div>
-    </a>
-  </li>
-
-  </ul>
-</div>
-
-
-<div class="gallery">
-  <ul class="results">
-
-    <!--Image 5-->
-    <li class="result">
-    <a href="#">
-      <div class="img-container">
-        <img src="assets/images/gettogether1.jpeg" alt="Descriptive Caption">
-        <div class="caption">ICME Group IITM</div>
-      </div>
-    </a>
-  </li>
-
-  <!--Image 6-->
-  <li class="result">
-    <a href="#">
-      <div class="img-container">
-        <img src="assets/images/warrengal_temple2.jpeg" alt="Descriptive Caption">
-        <div class="caption">Thousant pillar temple, Warrengal</div>
-      </div>
-    </a>
-  </li>
+      <!--Image 4-->
+      <li class="result">
+        <a href="#">
+          <div class="img-container">
+            <img src="assets/images/temple.jpeg" alt="Descriptive Caption">
+            <div class="caption">sri lakshmi narasimha swamy temple sholingur</div>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
 
 
+  <div class="gallery">
+    <ul class="results">
 
-    <!--Image 3-->
-  <li class="result">
-    <a href="#">
-      <div class="img-container">
-        <img src="assets/images/MTech.jpeg" alt="Descriptive Caption">
-        <div class="caption">Send off MTech Students</div>
-      </div>
-    </a>
-  </li>
+      <!--Image 5-->
+      <li class="result">
+        <a href="#">
+          <div class="img-container">
+            <img src="assets/images/gettogether1.jpeg" alt="Descriptive Caption">
+            <div class="caption">ICME Group IITM</div>
+          </div>
+        </a>
+      </li>
 
-  <!--Image 8-->
-  <li class="result">
-    <a href="#">
-      <div class="img-container">
-        <img src="assets/images/some_treat.jpeg" alt="Descriptive Caption">
-        <div class="caption">Treat from Dr Uday Prathap Sing</div>
-      </div>
-    </a>
-  </li>
+      <!--Image 6-->
+      <li class="result">
+        <a href="#">
+          <div class="img-container">
+            <img src="assets/images/warrengal_temple2.jpeg" alt="Descriptive Caption">
+            <div class="caption">Thousant pillar temple, Warrengal</div>
+          </div>
+        </a>
+      </li>
+
+      <!--Image 3-->
+      <li class="result">
+        <a href="#">
+          <div class="img-container">
+            <img src="assets/images/MTech.jpeg" alt="Descriptive Caption">
+            <div class="caption">Send off MTech Students</div>
+          </div>
+        </a>
+      </li>
+
+      <!--Image 8-->
+      <li class="result">
+        <a href="#">
+          <div class="img-container">
+            <img src="assets/images/some_treat.jpeg" alt="Descriptive Caption">
+            <div class="caption">Treat from Dr Uday Prathap Sing</div>
+          </div>
+        </a>
+      </li>
   
   </ul>
 </div>
