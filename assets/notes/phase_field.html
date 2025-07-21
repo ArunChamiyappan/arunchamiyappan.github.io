@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arun Chamiyappan</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/contact.css"/>
+  <link rel="stylesheet" href="../css/navbar.css"/>
+</head>
+<body>
+  <header>
+    <h1>Arun Chamiyappan</h1>
+    <h3>PhD Student | IIT Madras</h3>
+  </header>
+
+  <main>
+
+    <h1>Allen-Cahn Equation</h1>
+    <p>The Allen-Cahn equation is a partial differential equation that describes the evolution of a phase field variable, typically used to model the motion of interfaces durign phase transformations</p>
+    
+    <!-- Small iteractive simulation of Allen cahn equation-->
+    <div class="simulation">
+      <p>Interactive simulation of the Allen-Cahn equation will be here.</p>
+      <p>
+
+        <body>
+        
+          <h3>2D Alen cahn simulation</h3>
+        
+          <div>
+            <label>K: <input type="range" id="K" min="0" max="5" step="1" value="1"> <span id="Kval">1</span></label>
+            <label>W: <input type="range" id="W" min="0" max="5" step="1" value="1"> <span id="Wval">1</span></label>
+            <label>M: <input type="range" id="M" min="0" max="5" step="1" value="1"> <span id="Mval">1</span></label>
+            <label>dt: <input type="range" id="dt" min="0.001" max="0.1" step="0.001" value="0.005"> <span id="dtval">0.01</span></label>
+            <label>FPS: <input type="range" id="fps" min="1" max="30" step="1" value="10"> <span id="fpsval">10</span></label>
+            <button onclick="start()">Restart</button>
+          </div>
+      
+          <canvas id="canvas" width="400" height="400"></canvas>
+          <p id="timeDisplay">Simulation Time: 0.000</p>
+
+          <script>
+            const canvas = document.getElementById("canvas");
+            const ctx = canvas.getContext("2d");
+            const width = canvas.width;
+            const height = canvas.height;
+            const N = width;
+            const dx = 1.0;
+        
+            let phi = new Array(N).fill().map(() => new Array(N).fill(0));
+            let phi_new = new Array(N).fill().map(() => new Array(N).fill(0));
+        
+            let K = 1.0; W = 1.0, M = 1.0, dt = 0.01, fps = 10;
+            let frameDelay = 1000 / fps;
+            let running = false;
+            let simTime = 0.0;
+            const timeDisplay = document.getElementById("timeDisplay");
+        
+            function updateSliders() {
+                K = parseFloat(document.getElementById('K').value);
+              W = parseFloat(document.getElementById('W').value);
+              M = parseFloat(document.getElementById('M').value);
+              dt = parseFloat(document.getElementById('dt').value);
+              fps = parseInt(document.getElementById('fps').value);
+              frameDelay = 1000 / fps;
+              document.getElementById('Kval').textContent = K;
+              document.getElementById('Wval').textContent = W;
+              document.getElementById('Mval').textContent = M;
+              document.getElementById('dtval').textContent = dt;
+              document.getElementById('fpsval').textContent = fps;
+            }
+        
+            document.querySelectorAll("input[type=range]").forEach(input => {
+              input.addEventListener("input", updateSliders);
+            });
+        
+            function initialize() {
+              for (let i = 0; i < N; i++) {
+                for (let j = 0; j < N; j++) {
+                  phi[i][j] = Math.random();
+                }
+              }
+                simTime = 0.0;
+                updateTimeDisplay();
+            }
+        
+            function step() {
+              for (let i = 1; i < N - 1; i++) {
+                for (let j = 1; j < N - 1; j++) {
+                    let laplacian = (phi[i + 1][j] + phi[i - 1][j] + phi[i][j + 1] + phi[i][j - 1] - 4 * phi[i][j]) / (dx * dx);
+                    let f_h_phi = 2 * W * phi[i][j] * (1-phi[i][j]) * (1-2*phi[i][j]);
+                  phi_new[i][j] = phi[i][j] + dt * M * (K * laplacian - f_h_phi);
+                }
+              }
+          
+              // Neumann BC
+              for (let i = 0; i < N; i++) {
+                phi_new[i][0] = phi_new[i][1];
+                phi_new[i][N - 1] = phi_new[i][N - 2];
+                phi_new[0][i] = phi_new[1][i];
+                phi_new[N - 1][i] = phi_new[N - 2][i];
+              }
+          
+              [phi, phi_new] = [phi_new, phi];
+                simTime += dt;
+                updateTimeDisplay();
+            }
+
+            function updateTimeDisplay() {
+      timeDisplay.textContent = `Simulation Time: ${simTime.toFixed(3)}`;
+    }
+        
+            function jetColorMap(val) {
+              // val in [0, 1]
+              let r = Math.min(1, Math.max(0, 1.5 - 4 * Math.abs(val - 0.75)));
+              let g = Math.min(1, Math.max(0, 1.5 - 4 * Math.abs(val - 0.5)));
+              let b = Math.min(1, Math.max(0, 1.5 - 4 * Math.abs(val - 0.25)));
+              return [r * 255, g * 255, b * 255];
+            }
+        
+            function draw() {
+              let image = ctx.createImageData(N, N);
+              for (let i = 0; i < N; i++) {
+                for (let j = 0; j < N; j++) {
+                  let idx = (j * N + i) * 4;
+                  let norm_val = (phi[i][j] + 1) / 2; // [-1,1] → [0,1]
+                  let [r, g, b] = jetColorMap(norm_val);
+                
+                  image.data[idx + 0] = r;
+                  image.data[idx + 1] = g;
+                  image.data[idx + 2] = b;
+                  image.data[idx + 3] = 255;
+                }
+              }
+              ctx.putImageData(image, 0, 0);
+            }
+        
+            function simulate() {
+              if (!running) return;
+              step();
+              draw();
+              setTimeout(simulate, frameDelay);
+            }
+        
+            function start() {
+              running = false;
+              updateSliders();
+              initialize();
+              setTimeout(() => {
+                running = true;
+                simulate();
+              }, 100);
+            }
+        
+            start();
+          </script>
+
+
+      </p>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+  </main>
+
+  <footer>
+    <p>Arun Chamiyappan  | Indian Institute of Technology Madras | mm23d002@smail.iitm.ac.in</p>
+  </footer>
+</body>
+</html>
