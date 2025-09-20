@@ -88,3 +88,31 @@ footer {
   letter-spacing: 1px;
   text-align: center;
 }
+
+
+.publications-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.publications-list li {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border-left: 4px solid #333;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.publications-list a {
+  color: #0077cc;
+  text-decoration: none;
+}
+
+.publications-list a:hover {
+  text-decoration: underline;
+}
+
+.journal {
+  font-style: italic;
+  color: #555;
+}
