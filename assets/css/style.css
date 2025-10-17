@@ -116,3 +116,71 @@ footer {
   font-style: italic;
   color: #555;
 }
+
+/* --- Media + Simulation styles moved from Allen-cahn_main.html --- */
+.media-container {
+  max-width: 900px;
+  margin: 1.5rem auto;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.media-container video {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: #000;
+}
+
+.media-caption {
+  font-size: 0.95rem;
+  color: #444;
+  margin-top: 0.5rem;
+  text-align: center;
+}
+
+.simulation {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 720px;
+  margin: 1.5rem auto;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.simulation > div:first-of-type {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.simulation label {
+  display: inline-flex;
+  gap: 0.4rem;
+  align-items: center;
+  font-size: 0.95rem;
+}
+
+.simulation canvas {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #000;
+}
+
+#timeDisplay {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* End moved styles */
