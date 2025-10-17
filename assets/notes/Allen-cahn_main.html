@@ -49,14 +49,14 @@
 
     <h3 class="unnumbered" id="free-energy-functional">Free EnergyFunctional</h3>
     <p>The model is based on a total free energy functional: 
-      <span class="math display">\[F[\phi] = \int_\Omega \left( \frac{\epsilon^2}{2} |\nabla \phi|^2 + W(\phi) \right) \, d\mathbf{x},\]</span>
+      <span class="math display">\[F[\phi] = \int_\Omega \left( \frac{\epsilon^2}{2} |\nabla \phi|^2 + f(\phi) \right) \, d\mathbf{x},\]</span>
     where
     </p>
 
     <ul>
       <li><p><span class="math inline">\(\epsilon\)</span> controls the interface width (gradient energy coefficient),</p></li>
-      <li><p><span class="math inline">\(W(\phi)\)</span> is a double-wellpotential. Here we choose 
-        <span class="math display">\[W(\phi) = \phi (1 - \phi)(1 - 2\phi),\]</span> 
+      <li><p><span class="math inline">\(f(\phi)\)</span> is a double-well potential. Here we choose 
+        <span class="math display">\[f(\phi) = W \phi^2 (1 - \phi)^2\]</span> 
         which favors two stable states: <span class="math inline">\(\phi = 0\)</span> and 
         <span class="math inline">\(\phi = 1\)</span>.</p></li>
     </ul>
@@ -69,30 +69,31 @@
     </p>
 
     <p>Evaluating the variational derivative gives: 
-      <span class="math display">\[\frac{\partial \phi}{\partial t} = M \left( \epsilon^2 \nabla^2 \phi - \frac{dW}{d\phi} \right).\]</span>
+      <span class="math display">\[\frac{\partial \phi}{\partial t} = M \left( \epsilon^2 \nabla^2 \phi - \frac{df}{d\phi} \right).\]</span>
     </p>
 
     <p>For the chosen potential, 
       <span class="math display">
         \[\begin{aligned} 
-        W(\phi) &amp;= \phi - 3\phi^2 + 2\phi^3, \\[6pt] \frac{dW}{d\phi} &amp;= 1 - 6\phi + 6\phi^2.
+        \frac{df}{d\phi} = 2W \phi (1 - \phi)(1 - 2\phi) \\
         \end{aligned}\]
       </span></p>
 
     <p>Thus, the Allen–Cahn equation becomes 
-      <span class="math display">\[\frac{\partial \phi}{\partial t} =
-        M \left( \epsilon^2 \nabla^2 \phi - \left( 1 - 6\phi + 6\phi^2 \right) \right).\]</span></p>
+      <span class="math display">
+        \[\frac{\partial \phi}{\partial t} =
+        M \left( \epsilon^2 \nabla^2 \phi - 2W \phi (1 - \phi)(1 - 2\phi) \right)\]</span></p>
 
     <h3 class="unnumbered" id="physical-interpretation">Physical Interpretation</h3>
     
   <ul>
 
     <li><p>The diffusion-like term 
-      <span class="math inline">\(\epsilon^2 \nabla^2 \phi\)</span> smooths the interface (surface tension effect).
+      <span class="math inline">\(\epsilon^2 \nabla^2 \phi\)</span>  (K) smooths the interface (surface tension effect).
     </p></li>
 
     <li><p>The reaction term 
-      <span class="math inline">\(-\big(1 - 6\phi + 6\phi^2\big)\)</span> drives the system toward the bulk phases (\
+      <span class="math inline">\(-\big(2W \phi (1 - \phi)(1 - 2\phi)\big)\)</span> drives the system toward the bulk phases (
       <span class="math inline">\(\phi = 0, 1\)</span>).
     </p></li>
     
@@ -138,7 +139,7 @@
             const timeDisplay = document.getElementById("timeDisplay");
         
             function updateSliders() {
-                K = parseFloat(document.getElementById('K').value);
+              K = parseFloat(document.getElementById('K').value);
               W = parseFloat(document.getElementById('W').value);
               M = parseFloat(document.getElementById('M').value);
               dt = parseFloat(document.getElementById('dt').value);
