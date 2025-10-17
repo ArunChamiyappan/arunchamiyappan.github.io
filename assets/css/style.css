@@ -211,14 +211,14 @@ footer {
 .simulation {
   display: flex;
   flex-direction: column;
-  align-items: center; /* horizontally center children */
+  align-items: center;
 }
 
 
 .colorbar-panel {
   position: absolute;
   /* position to the right of the centered canvas */
-  right: -90px; /* nudge further to the right so the canvas visually appears centered */
+  right: -90px;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
