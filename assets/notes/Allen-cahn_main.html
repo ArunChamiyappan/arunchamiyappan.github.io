@@ -127,6 +127,7 @@
               <canvas id="colorbar" width="20" height="200" aria-hidden="true"></canvas>
               <div class="colorbar-labels">
                 <div class="colorbar-max">1.00</div>
+                <div class="colorbar-mid">0.50</div>
                 <div class="colorbar-min">0.00</div>
               </div>
             </div>
@@ -240,6 +241,9 @@
 
             // Current colormap function (default jet)
             let currentColorMap = jetColorMap;
+            // Track current data range for normalization
+            let dataMin = 0.0;
+            let dataMax = 1.0;
 
             document.getElementById('colormap').addEventListener('change', (e) => {
               const v = e.target.value;
@@ -256,9 +260,13 @@
               const w = cb.width;
               const h = cb.height;
               const img = cctx.createImageData(w, h);
-              // vertical colorbar: y=0 top -> max (1.0), y=h-1 bottom -> min (0.0)
+              // vertical colorbar: y=0 top -> max (dataMax), y=h-1 bottom -> min (dataMin)
               for (let y = 0; y < h; y++) {
-                const t = 1 - (y / (h - 1));
+                const t_val = 1 - (y / (h - 1)); // normalized [0,1]
+                // map t_val to data value between dataMin..dataMax
+                const dataVal = dataMin + t_val * (dataMax - dataMin);
+                // compute normalized t for colormap: (dataVal - dataMin)/(dataMax-dataMin)
+                const t = (dataMax === dataMin) ? 0.5 : (dataVal - dataMin) / (dataMax - dataMin);
                 const [r,g,b] = currentColorMap(t);
                 for (let x = 0; x < w; x++) {
                   const idx = (y * w + x) * 4;
@@ -269,21 +277,48 @@
                 }
               }
               cctx.putImageData(img, 0, 0);
+              // draw a small tick at midpoint
+              const tickX = Math.floor(w / 2);
+              const midY = Math.floor(h / 2);
+              cctx.fillStyle = '#000000';
+              // draw a thin horizontal tick across the colorbar
+              for (let tx = 0; tx < w; tx++) {
+                const idx = (midY * w + tx) * 4;
+                // lighten/darken tick by drawing a single-pixel line (we'll overwrite with black)
+              }
+              cctx.fillRect(0, midY - 1, w, 2);
+
               // update numeric labels
               const maxLabel = document.querySelector('.colorbar-max');
+              const midLabel = document.querySelector('.colorbar-mid');
               const minLabel = document.querySelector('.colorbar-min');
-              if (maxLabel) maxLabel.textContent = '1.00';
-              if (minLabel) minLabel.textContent = '0.00';
+              if (maxLabel) maxLabel.textContent = dataMax.toFixed(3);
+              if (midLabel) midLabel.textContent = ((dataMax + dataMin) / 2).toFixed(3);
+              if (minLabel) minLabel.textContent = dataMin.toFixed(3);
             }
         
             function draw() {
+              // compute data range
+              let minV = Infinity, maxV = -Infinity;
+              for (let i = 0; i < N; i++) {
+                for (let j = 0; j < N; j++) {
+                  const v = phi[i][j];
+                  if (v < minV) minV = v;
+                  if (v > maxV) maxV = v;
+                }
+              }
+              dataMin = minV === Infinity ? 0 : minV;
+              dataMax = maxV === -Infinity ? 1 : maxV;
+
               let image = ctx.createImageData(N, N);
               for (let i = 0; i < N; i++) {
                 for (let j = 0; j < N; j++) {
                   let idx = (j * N + i) * 4;
-                  let norm_val = (phi[i][j] + 1) / 2; // [-1,1] → [0,1]
+                  // normalize phi according to dataMin..dataMax to [0,1]
+                  let norm_val = (dataMax === dataMin) ? 0.5 : (phi[i][j] - dataMin) / (dataMax - dataMin);
+                  norm_val = Math.max(0, Math.min(1, norm_val));
                   let [r, g, b] = currentColorMap(norm_val);
-                
+
                   image.data[idx + 0] = r;
                   image.data[idx + 1] = g;
                   image.data[idx + 2] = b;
@@ -291,6 +326,8 @@
                 }
               }
               ctx.putImageData(image, 0, 0);
+              // redraw colorbar with updated data range
+              drawColorbar();
             }
         
             function simulate() {
