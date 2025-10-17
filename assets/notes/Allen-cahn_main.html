@@ -89,7 +89,7 @@
   <ul>
 
     <li><p>The diffusion-like term 
-      <span class="math inline">\(\epsilon^2 \nabla^2 \phi\)</span>  (K) smooths the interface (surface tension effect).
+      <span class="math inline">\(\epsilon^2 \nabla^2 \phi\)</span> smooths the interface.
     </p></li>
 
     <li><p>The reaction term 
@@ -104,9 +104,7 @@
 
     <!-- Small iteractive simulation of Allen cahn equation-->
     <div class="simulation">
-      <p>
 
-          
           <h3>Interactive simulation</h3>
         
           <div>
@@ -115,10 +113,24 @@
             <label>M: <input type="range" id="M" min="0" max="5" step="1" value="1"> <span id="Mval">1</span></label>
             <label>dt: <input type="range" id="dt" min="0.001" max="0.1" step="0.001" value="0.005"> <span id="dtval">0.01</span></label>
             <label>FPS: <input type="range" id="fps" min="1" max="30" step="1" value="10"> <span id="fpsval">10</span></label>
+            <label>Colormap: <select id="colormap">
+                <option value="jet">Jet</option>
+                <option value="viridis">Viridis</option>
+                <option value="gray">Gray</option>
+              </select></label>
             <button onclick="start()">Restart</button>
           </div>
       
-          <canvas id="canvas" width="400" height="400"></canvas>
+          <div class="sim-display">
+            <canvas id="canvas" width="400" height="400"></canvas>
+            <div class="colorbar-panel">
+              <canvas id="colorbar" width="20" height="200" aria-hidden="true"></canvas>
+              <div class="colorbar-labels">
+                <div class="colorbar-max">1.00</div>
+                <div class="colorbar-min">0.00</div>
+              </div>
+            </div>
+          </div>
           <p id="timeDisplay">Simulation Time: 0.000</p>
 
           <script>
@@ -199,6 +211,70 @@
               let b = Math.min(1, Math.max(0, 1.5 - 4 * Math.abs(val - 0.25)));
               return [r * 255, g * 255, b * 255];
             }
+
+            function grayColorMap(val) {
+              const v = Math.round(val * 255);
+              return [v, v, v];
+            }
+
+            // Simple viridis-like palette (approximation)
+            function viridisColorMap(val) {
+              // Coefficients taken from a common viridis approximation
+              const c = [
+                [0.267004,0.004874,0.329415],
+                [0.190631,0.407061,0.556089],
+                [0.20803,0.718701,0.472873],
+                [0.993248,0.906157,0.143936]
+              ];
+              // simple interpolation across four stops
+              const t = Math.max(0, Math.min(1, val));
+              const idx = Math.floor(t * (c.length - 1));
+              const frac = (t * (c.length - 1)) - idx;
+              const a = c[idx];
+              const b = c[Math.min(idx + 1, c.length - 1)];
+              const r = Math.round((a[0] + (b[0]-a[0]) * frac) * 255);
+              const g = Math.round((a[1] + (b[1]-a[1]) * frac) * 255);
+              const bl = Math.round((a[2] + (b[2]-a[2]) * frac) * 255);
+              return [r, g, bl];
+            }
+
+            // Current colormap function (default jet)
+            let currentColorMap = jetColorMap;
+
+            document.getElementById('colormap').addEventListener('change', (e) => {
+              const v = e.target.value;
+              if (v === 'jet') currentColorMap = jetColorMap;
+              else if (v === 'viridis') currentColorMap = viridisColorMap;
+              else if (v === 'gray') currentColorMap = grayColorMap;
+              drawColorbar();
+            });
+
+            function drawColorbar() {
+              const cb = document.getElementById('colorbar');
+              if (!cb) return;
+              const cctx = cb.getContext('2d');
+              const w = cb.width;
+              const h = cb.height;
+              const img = cctx.createImageData(w, h);
+              // vertical colorbar: y=0 top -> max (1.0), y=h-1 bottom -> min (0.0)
+              for (let y = 0; y < h; y++) {
+                const t = 1 - (y / (h - 1));
+                const [r,g,b] = currentColorMap(t);
+                for (let x = 0; x < w; x++) {
+                  const idx = (y * w + x) * 4;
+                  img.data[idx] = r;
+                  img.data[idx+1] = g;
+                  img.data[idx+2] = b;
+                  img.data[idx+3] = 255;
+                }
+              }
+              cctx.putImageData(img, 0, 0);
+              // update numeric labels
+              const maxLabel = document.querySelector('.colorbar-max');
+              const minLabel = document.querySelector('.colorbar-min');
+              if (maxLabel) maxLabel.textContent = '1.00';
+              if (minLabel) minLabel.textContent = '0.00';
+            }
         
             function draw() {
               let image = ctx.createImageData(N, N);
@@ -206,7 +282,7 @@
                 for (let j = 0; j < N; j++) {
                   let idx = (j * N + i) * 4;
                   let norm_val = (phi[i][j] + 1) / 2; // [-1,1] → [0,1]
-                  let [r, g, b] = jetColorMap(norm_val);
+                  let [r, g, b] = currentColorMap(norm_val);
                 
                   image.data[idx + 0] = r;
                   image.data[idx + 1] = g;
@@ -234,6 +310,8 @@
               }, 100);
             }
         
+            // Draw the initial colorbar and start the simulation
+            drawColorbar();
             start();
           </script>
 

@@ -184,3 +184,86 @@ footer {
 }
 
 /* End moved styles */
+
+/* Colormap selector + colorbar styles */
+.simulation select#colormap {
+  padding: 0.25rem 0.4rem;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+.simulation canvas#colorbar {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Vertical colorbar layout */
+.sim-display {
+  position: relative;
+  /* constrain to canvas width so the canvas appears centered */
+  width: 100%;
+  max-width: 500px; /* same as canvas max */
+  margin: 0 auto; /* center this block */
+}
+
+/* center the entire simulation console */
+.simulation {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* horizontally center children */
+}
+
+
+.colorbar-panel {
+  position: absolute;
+  /* position to the right of the centered canvas */
+  right: -90px; /* nudge further to the right so the canvas visually appears centered */
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.colorbar-panel canvas#colorbar {
+  width: 14px; /* visual width */
+  height: 160px; /* visual height */
+}
+
+.colorbar-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 160px;
+  font-size: 0.85rem;
+}
+
+/* Responsive: if screen is narrow, stack colorbar under the canvas */
+@media (max-width: 640px) {
+  .colorbar-panel {
+    position: static;
+    transform: none;
+    margin-top: 0.5rem;
+    right: auto;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  .colorbar-labels {
+    height: auto;
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+  .colorbar-panel canvas#colorbar {
+    width: 160px;
+    height: 14px;
+  }
+}
+
+.colorbar-max, .colorbar-min {
+  color: #333;
+  width: 40px;
+  text-align: left;
+}
