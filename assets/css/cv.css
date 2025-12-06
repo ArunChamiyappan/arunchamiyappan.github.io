@@ -2,36 +2,46 @@
   width: 100%;
   border-collapse: collapse;
   margin: 2rem auto;
-  font-family: 'Arial', sans-serif;
+  font-family: var(--font-main);
   font-size: 1rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .education-table td {
-  padding: 10px 15px;
-  border: 1px solid #ccc;
+  padding: 12px 15px;
+  border-bottom: 1px solid #e2e8f0;
   text-align: left;
+  color: var(--text-color);
 }
 
-.education-table tr.odd {
-  background-color: #f9f9f9;
+.education-table tr:last-child td {
+  border-bottom: none;
 }
 
-.education-table tr.even {
+.education-table tr:nth-child(odd) {
+  background-color: #f8fafc; /* Light slate */
+}
+
+.education-table tr:nth-child(even) {
   background-color: #ffffff;
 }
 
 .education-table tr:hover {
-  background-color: #eef;
+  background-color: #f1f5f9;
 }
 
 .education-table thead {
-  background-color: #f6f1f1; /* light grey */
+  background-color: var(--primary-color);
+  color: #fff;
 }
 
 .education-table th {
-  padding: 12px 15px;
+  padding: 15px;
   text-align: left;
-  font-weight: bold;
-  border: 1px solid #ccc;
-  background-color: #b7b5be;
+  font-weight: 600;
+  border: none;
+  background-color: var(--primary-color);
+  color: #fff;
 }

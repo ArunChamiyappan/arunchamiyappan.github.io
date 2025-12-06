@@ -13,9 +13,7 @@
 
 <body>
   <header>
-    <div style="height: 20px;"></div>
     <h1>Arun Chamiyappan</h1>
-    <div style="height: 20px;"></div>
     <h3>PhD Student | IIT Madras</h3>
     <nav class="navbar">
       <ul class="navbar-menu">
@@ -30,6 +28,7 @@
           </ul>
         </li>
         <li><a href="pages/publications.html">Publications</a></li>
+        <li><a href="pages/gallery.html">Gallery</a></li>
         <li><a href="https://github.com/ArunChamiyappan">GitHub</a></li>
       </ul>
     </nav>
@@ -39,107 +38,22 @@
   <main>
     <section id="about">
       <h2>About Me</h2>
-      <img src="assets/images/phoshi.jpeg" alt="Profile Picture" style="width: 300px;" />
-      <p>
-        I am a PhD student in the Department of Metallurgical and Materials Engineering at the Indian Institute of Technology Madras.
-        My research focuses on numerical modeling and simulation of additive manufacturing processes, with a particular interest in phase-field methods and finite element analysis. 
-        I am passionate about developing high-performance computing solutions using GPU acceleration to solve complex problems in materials science. 
-        My work aims to bridge the gap between computational modeling and real-world manufacturing applications.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 2rem; align-items: center; justify-content: center;">
+        <img src="assets/images/phoshi.jpeg" alt="Profile Picture" class="profile-pic" />
+        <div style="flex: 1; min-width: 300px;">
+          <p>
+            I am a PhD student in the Department of Metallurgical and Materials Engineering at the Indian Institute of Technology Madras.
+          </p>
+          <div class="research-highlight">
+            My research focuses on <strong>accelerated modeling of rapid directional solidification using phase-field methods</strong> and <strong>multiscale modeling of additive manufacturing using the ICME approach</strong>.
+          </div>
+          <p>
+            I am passionate about developing high-performance computing solutions using GPU acceleration to solve complex problems in materials science. 
+            My work aims to bridge the gap between computational modeling and real-world manufacturing applications.
+          </p>
+        </div>
+      </div>
     </section>
-
-  <h3 style="text-align: center;">Gallery</h3>   
-  <div class="gallery">
-    <ul class="results">
-      <!--Image 1-->
-      <li class="result">
-        <a href="#">
-          <div class="img-container">
-            <img src="assets/images/gettogether2.jpeg" alt="Descriptive Caption">
-            <div class="caption">ICME Get-together</div>
-          </div>
-        </a>
-      </li>
-
-      <!--Image 2-->
-      <li class="result">
-        <a href="#">
-          <div class="img-container">
-            <img src="assets/images/microsim_group_photo.jpeg" alt="Descriptive Caption">
-            <div class="caption">MicroSim workshop - group photo from chitradurga fort </div>
-          </div>
-        </a>
-      </li>
-
-      <!--Image 7-->
-      <li class="result">
-        <a href="#">
-          <div class="img-container">
-            <img src="assets/images/MEJIBI.jpeg" alt="Descriptive Caption">
-            <div class="caption">😀</div>
-          </div>
-        </a>
-      </li>
-
-      <!--Image 4-->
-      <li class="result">
-        <a href="#">
-          <div class="img-container">
-            <img src="assets/images/temple.jpeg" alt="Descriptive Caption">
-            <div class="caption">sri lakshmi narasimha swamy temple sholingur</div>
-          </div>
-        </a>
-      </li>
-    </ul>
-  </div>
-
-
-  <div class="gallery">
-    <ul class="results">
-
-      <!--Image 5-->
-      <li class="result">
-        <a href="#">
-          <div class="img-container">
-            <img src="assets/images/gettogether1.jpeg" alt="Descriptive Caption">
-            <div class="caption">ICME Group IITM</div>
-          </div>
-        </a>
-      </li>
-
-      <!--Image 6-->
-      <li class="result">
-        <a href="#">
-          <div class="img-container">
-            <img src="assets/images/warrengal_temple2.jpeg" alt="Descriptive Caption">
-            <div class="caption">Thousand pillar temple, Warrengal</div>
-          </div>
-        </a>
-      </li>
-
-      <!--Image 3-->
-      <li class="result">
-        <a href="#">
-          <div class="img-container">
-            <img src="assets/images/MTech.jpeg" alt="Descriptive Caption">
-            <div class="caption">Send off MTech Students</div>
-          </div>
-        </a>
-      </li>
-
-      <!--Image 8-->
-      <li class="result">
-        <a href="#">
-          <div class="img-container">
-            <img src="assets/images/IITM_microsim.jpeg" alt="Descriptive Caption">
-            <div class="caption">MicroSim IIT Madras group</div>
-          </div>
-        </a>
-      </li>
-  
-  </ul>
-</div>
-
-
 
 <section id="contact">
   <h2>Contact</h2>

@@ -1,27 +1,64 @@
+:root {
+  --primary-color: #002147; /* Oxford Blue - More academic */
+  --secondary-color: #005A9C; /* Berkeley Blue */
+  --accent-color: #E87722; /* Academic Orange */
+  --text-color: #333333;
+  --bg-color: #f4f4f4;
+  --card-bg: #ffffff;
+  --header-bg: #002147;
+  --font-heading: 'Georgia', 'Times New Roman', serif; /* Serif for headings */
+  --font-body: 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: var(--font-body);
   margin: 0;
   padding: 0;
-  line-height: 1.6;
-  color: #333;
-  background-color: #f9f9f9;
+  line-height: 1.8; /* Increased line height for readability */
+  color: var(--text-color);
+  background-color: var(--bg-color);
 }
 
 header {
-  background-color: #004080;
+  background: var(--header-bg);
   color: #fff;
-  padding: 2rem;
+  padding: 2rem 1rem 2.5rem; /* Compact padding */
   text-align: center;
+  border-bottom: 4px solid var(--accent-color); /* Restored academic accent line */
+  position: relative;
+  z-index: 20;
 }
 
-header1 {
-  color:black;
-  padding: 2rem;
-  text-align: center;
+/* Restored subtle texture */
+header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  opacity: 1;
+  pointer-events: none;
 }
 
-.underline {
-  text-decoration: underline;
+header h1 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 2.2rem; /* Compact size */
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3); /* Restored shadow */
+}
+
+header h3 {
+  margin-top: 0.5rem;
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: #e0e0e0;
+  font-size: 1rem; /* Compact size */
+  letter-spacing: 0.05em;
+  text-transform: uppercase; /* Restored uppercase */
 }
 
 .header-container {
@@ -33,60 +70,98 @@ header1 {
 }
 
 .profile-pic {
-  width: 120px;
+  width: 120px; /* Smaller profile pic */
   height: 120px;
   border-radius: 50%;
   object-fit: cover;
-}
-
-.profile-box {
-  width: 150px;
-  height: 160px;
-  object-fit: cover;
-}
-
-.header-text h1 {
-  margin: 0;
-  font-size: 2rem;
-}
-
-.header-text p {
-  margin: 0.5rem 0 1rem;
-}
-
-nav a {
-  margin: 0 15px;
-  color: #fff;
-  text-decoration: none;
-  font-weight: bold;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
 main {
-  padding: 2rem;
-  max-width: 1000px; /* Adjusted max-width */
-  margin: auto;
-  background: #fff;
-  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  padding: 3rem 2rem;
+  max-width: 960px; /* Standard width */
+  margin: -2rem auto 3rem; /* Less overlap */
+  background: var(--card-bg);
+  border-radius: 4px; /* Sharper corners for professional look */
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+  position: relative;
+  z-index: 10;
 }
 
 section {
-  margin-bottom: 2rem;
+  margin-bottom: 4rem;
 }
 
-#about p {
+h2 {
+  color: var(--primary-color);
+  font-family: var(--font-heading);
+  border-bottom: 1px solid #ddd; /* Thinner, cleaner line */
+  padding-bottom: 0.8rem;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+h3 {
+  color: var(--primary-color);
+}
+
+p {
+  margin-bottom: 1.5rem;
   text-align: justify;
-  font-family: 'Segoe UI', sans-serif;
-  font-weight: 600;
+}
+
+a {
+  color: var(--secondary-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--primary-color);
+  text-decoration: underline;
+}
+
+/* Research Highlight Box */
+.research-highlight {
+  background: #f8fafc;
+  border-left: 4px solid var(--accent-color);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+  color: #475569;
 }
 
 footer {
-  padding: 2rem;
-  min-height: 2rem;
-  color: rgb(0, 0, 0);
-  font-family: monospace;
-  font-weight: bold;
-  letter-spacing: 1px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  margin-top: 3rem; /* Reduced space above footer */
+  
+  /* Professional Academic Theme */
+  background-color: var(--primary-color); /* Oxford Blue */
+  color: #cbd5e1; /* Slightly muted text */
+  
+  padding: 1.5rem 1rem; /* Reduced padding */
   text-align: center;
+  font-size: 0.85rem; /* Smaller font */
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace; /* Technical/Code font */
+  letter-spacing: 0.05em;
+  
+  /* Elegant styling */
+  border-radius: 0;
+  border-top: 3px solid var(--accent-color); /* Matching the header accent */
+  box-shadow: none;
+}
+
+footer p {
+  margin: 0;
+  opacity: 0.9;
+  max-width: 960px; /* Keep text contained for readability */
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center; /* Override global p justify */
 }
 
 
