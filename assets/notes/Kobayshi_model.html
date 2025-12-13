@@ -88,9 +88,7 @@
     <p>
       <span class="math display">\[ m(T) = \frac{\alpha}{\pi} \arctan(\gamma(T_{eq} - T)) \]</span>
     </p>
-        <p>where <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\gamma\)</span> 
-are positive constants, and <span class="math inline">\(T_{eq}\)</span> is the equilibrium melting temper
-ature (typically scaled to 1).</p>
+        <p>where <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\gamma\)</span> are positive constants, and <span class="math inline">\(T_{eq}\)</span> is the equilibrium melting temperature (typically scaled to 1).</p>
 
     <!-- Interactive simulation of Kobayashi model -->
     <div class="simulation">
@@ -98,8 +96,8 @@ ature (typically scaled to 1).</p>
       
       <div style="margin-bottom: 10px;">
         <label>Anisotropy: <select id="anisotropy">
-            <option value="4">4-fold</option>
             <option value="6">6-fold</option>
+            <option value="4">4-fold</option>
           </select></label>
         <button onclick="initialize()">Restart</button>
         <button onclick="toggleRun()" id="runBtn">Start</button>
@@ -125,7 +123,7 @@ ature (typically scaled to 1).</p>
         const height = canvas.height;
         
         // Simulation grid size (smaller than canvas for performance)
-        const N = 120; 
+        const N = 200; 
         const dx = 0.03;
         const dy = 0.03;
         const dx2 = dx * dx;
@@ -146,7 +144,7 @@ ature (typically scaled to 1).</p>
         let alpha = 0.9;
         let gamma = 10.0;
         let teq = 1.0;
-        let dt = 0.00002;
+        let dt = 0.0001;
         
         let running = false;
         let simTime = 0.0;
@@ -258,12 +256,17 @@ ature (typically scaled to 1).</p>
             }
           }
           
-          // Swap arrays
           let temp = p; p = p_new; p_new = temp;
           temp = T; T = T_new; T_new = temp;
           
           simTime += dt;
           updateTimeDisplay();
+
+          if (simTime >= 0.2) {
+            running = false;
+            runBtn.textContent = "Start";
+            return;
+          }
         }
 
         function updateTimeDisplay() {
@@ -322,7 +325,21 @@ ature (typically scaled to 1).</p>
       </script>
     </div>
 
-  </main>
+    <!-- 6 Fold symmetry 2d simulation -->
+    <section class="media-container" id="Snowflake-2D (6 fold symmetry)">
+      <h3 style="text-align:center;">3D Cahn–Hilliard Animation</h3>
+      <video controls preload="metadata" poster="../images/snowflake.png">
+        <source src="../animations/snowflake.mp4" type="video/mp4">
+        Your browser does not support the video tag. You can
+        <a href="../animations/snowflake.mp4">download the animation</a> instead.
+      </video>
+      <div class="media-caption">growth of a solid nucleus with 6-fold symmetry.</div>
+    </section>
+
+    <note>
+    <p>The <strong> SYCL </strong> programme used for the simulation is available online <a href="https://github.com/gphanikumar/hpc/tree/main/Parallel_Programming/SYCL/Kobayshi_model">here</a>.</p>
+
+
 
   </main>
 
